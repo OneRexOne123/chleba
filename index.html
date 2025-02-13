@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day - Kindred Theme</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('https://i.imgur.com/bgjBURW.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .button.yes {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .button.no {
+            background: #f44336;
+            color: white;
+            position: absolute;
+        }
+
+        .button.yes:hover {
+            background: #45a049;
+        }
+
+        .button.no:hover {
+            background: #e53935;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .message {
+            font-size: 2em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Udelíš mi tú najväčšiu radosť a česť a staneš sa mojou Valentínkou?</h1>
+        <div class="buttons">
+            <button class="button yes" id="yesButton" onclick="showMessage()">Áno</button>
+            <button class="button no" id="noButton">Nie</button>
+        </div>
+        <div class="message hidden" id="message">
+            Yippeee, ďakujem láska, milujem ťa nadovšetko. 💘
+        </div>
+    </div>
+
+    <!-- Audio for the "yippee" sound -->
+    <audio id="yippeeSound" src="https://www.soundjay.com/human/yippee-01.mp3"></audio>
+
+    <script>
+        const noButton = document.getElementById('noButton');
+        const yesButton = document.getElementById('yesButton');
+        let attempts = 0; // Track the number of attempts to click the "No" button
+
+        // Function to move the "No" button randomly
+        function moveButton() {
+            const x = Math.random() * (window.innerWidth - noButton.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noButton.offsetHeight);
+            noButton.style.left = `${x}px`;
+            noButton.style.top = `${y}px`;
+
+            // Increase the size of the "Yes" button
+            attempts++;
+            const newSize = 1 + attempts * 0.2; // Increase size by 20% each attempt
+            yesButton.style.transform = `scale(${newSize})`;
+        }
+
+        // Move the button every 500ms (0.5 seconds)
+        setInterval(moveButton, 1000);
+
+        // Trigger moveButton when the "No" button is hovered or touched
+        noButton.addEventListener('mouseover', moveButton);
+        noButton.addEventListener('touchstart', moveButton);
+
+        function showMessage() {
+            const message = document.getElementById('message');
+            const buttons = document.querySelector('.buttons');
+            const yippeeSound = document.getElementById('yippeeSound');
+
+            // Play the "yippee" sound
+            yippeeSound.play();
+
+            // Show the message and hide the buttons
+            message.classList.remove('hidden');
+            buttons.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
